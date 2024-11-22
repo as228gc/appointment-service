@@ -1,13 +1,9 @@
 package com.alexsoderberg.personal.appointment_service.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class AppointmentTest {
 
@@ -23,5 +19,4 @@ public class AppointmentTest {
       "Male hair cut"
     );
   }
-  
 }
