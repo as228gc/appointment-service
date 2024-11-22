@@ -14,27 +14,31 @@ public class AppointmentTest {
 
   private Appointment sut;
   private String testName = "Test Testsson";
+  private LocalDate testDate = LocalDate.now().plusDays(1);
+  private LocalTime testTime = LocalTime.now().plusHours(1);
+  private int testDuration = 90;
+  private String testDescription = "Male hair cut";
 
   @BeforeEach
   void setUp() {
     sut = new Appointment(
       testName,
-      LocalDate.of(2024, 1, 1),
-      LocalTime.of(10, 0),
-      90,
-      "Male hair cut"
+      testDate,
+      testTime,
+      testDuration,
+      testDescription
     );
   }
 
   @Test
-  void shouldGetNameProperty() {
+  void getNameShouldReturnName() {
     String actual = sut.getName();
     String expected = "Test Testsson";
     assertEquals(expected, actual);
   }
 
   @Test
-  void shouldSetNameProperty() {
+  void setNameShouldSetNewName() {
     String input = "Alex Söderberg";
     String expected = input;
 
@@ -44,13 +48,14 @@ public class AppointmentTest {
   }
 
   @Test
-  void setShouldThrowExceptionOnBlankStringEntered() {
+  void setNameShouldThrowExceptionOnBlankStringEntered() {
     String input = "  ";
     assertThrows(IllegalArgumentException.class, () -> sut.setName(input));
   }
 
+  // Redundant test...
   @Test
-  void nameShouldBeUnchangedOnEmptyStringSet() {
+  void setNameShouldNotChangeNameWhenEnteredWithEmptyString() {
     String input = "";
     String expected = testName;
 
@@ -61,8 +66,9 @@ public class AppointmentTest {
     }
   }
 
+  // Redundant test...
   @Test
-  void nameShouldBeUnchangedWhenNameSetToBlankspace() {
+  void setNameShouldNotChangeWhenEnteredWithBlankspaces() {
     String input = "  ";
     String expected = testName;
 
@@ -76,5 +82,30 @@ public class AppointmentTest {
   private String setAndReturnUpdatedName(String newName) {
     sut.setName(newName);
     return sut.getName();
+  }
+
+
+  @Test
+  void getDateShouldReturnDate() {
+    LocalDate expected = sut.getDate();
+    LocalDate actual = testDate;
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void setDateShouldSetNewDate() {
+    LocalDate input = LocalDate.now().plusDays(2);
+    LocalDate expected = input;
+    sut.setDate(input);
+
+    LocalDate actual = sut.getDate();
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void setDateShouldThrowErrorWhenEnteredWithPassedDate() {
+    LocalDate input = LocalDate.of(2024, 1, 1);
+    assertThrows(IllegalArgumentException.class, () -> sut.setDate(input));
   }
 }
