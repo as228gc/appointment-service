@@ -79,8 +79,18 @@ public class Appointment {
    * @throws IllegalArgumentException
    */
   private void validateDate(LocalDate date) throws IllegalArgumentException {
-    if (date.isBefore(LocalDate.now())) {
+    if (date.isBefore(LocalDate.now()) || date.equals(LocalDate.now())) {
       throw new IllegalArgumentException();
     }
+  }
+
+  public LocalTime getTime() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getTime'");
+  }
+
+  public Object setTime(LocalTime input) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'setTime'");
   }
 }
