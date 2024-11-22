@@ -9,6 +9,7 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.cglib.core.Local;
 
 public class AppointmentTest {
 
@@ -108,4 +109,56 @@ public class AppointmentTest {
     LocalDate input = LocalDate.of(2024, 1, 1);
     assertThrows(IllegalArgumentException.class, () -> sut.setDate(input));
   }
+
+  @Test
+  void setDateShouldThrowErrorWhenEnteredWithTodaysDate() {
+    LocalDate input = LocalDate.now();
+    assertThrows(IllegalArgumentException.class, () -> sut.setDate(input));
+  }
+
+  @Test
+  void getTimeShouldReturnTime() {
+    LocalTime expected = testTime;
+    LocalTime actual = sut.getTime();
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void setTimeShouldSetNewTime() {
+    int offset = 2;
+
+    LocalTime input = getTimeWithOffset(offset, offset);
+    LocalTime expected = input;
+    sut.setTime(input);
+    LocalTime actual = sut.getTime();
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void setTimeShouldThrowExceptionOnPassedTimeAndDateEntered() {
+    Appointment sut = new Appointment(
+      testName,
+      LocalDate.now(),
+      testTime,
+      testDuration,
+      testDescription
+    );
+
+    int offset = -2;
+    LocalTime input = getTimeWithOffset(offset, offset);
+
+    assertThrows(IllegalArgumentException.class, () -> sut.setTime(input));
+  }
+
+  private LocalTime getTimeWithOffset(int hourOffset, int minuteOffset) {
+    int currentHour = testTime.getHour();
+    int currentMinute = testTime.getMinute();
+
+    int newHour = currentHour + hourOffset;
+    int newMinute = currentMinute + minuteOffset;
+    return LocalTime.of(newHour, newMinute);
+  }
+
 }
