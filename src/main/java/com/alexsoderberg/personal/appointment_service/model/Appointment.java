@@ -50,4 +50,37 @@ public class Appointment {
       throw new IllegalArgumentException();
     }
   }
+
+  /**
+   * Returns the date of the appointment.
+   *
+   * @return The date property.
+   */
+  public LocalDate getDate() {
+    return date;
+  }
+
+  /**
+   * Sets a new date to the date property. 
+   *
+   * @param newDate - The date to be set.
+   * @throws IllegalArgumentException
+   */
+  public void setDate(LocalDate newDate) throws IllegalArgumentException {
+    validateDate(newDate);
+    date = newDate;
+  }
+
+  /**
+   * Validates if the entered date is before the current date. If so,
+   * throw an {@link IllegalArgumentException}
+   *
+   * @param date - The date to check.
+   * @throws IllegalArgumentException
+   */
+  private void validateDate(LocalDate date) throws IllegalArgumentException {
+    if (date.isBefore(LocalDate.now())) {
+      throw new IllegalArgumentException();
+    }
+  }
 }
