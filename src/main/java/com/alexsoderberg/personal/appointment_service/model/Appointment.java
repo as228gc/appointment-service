@@ -18,12 +18,36 @@ public class Appointment {
     this.description = description;
   }
 
+  /**
+   * Returns the name property.
+   *
+   * @return A string representing the name property.
+   */
   public String getName() {
     return name;
   }
 
-  public void setName(String newName) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setName'");
+  /**
+   * Sets a new name to the name property.
+   *
+   * @param newName - The new name to be set to the name property.
+   * @throws IllegalArgumentException - If the new name is invalid.
+   */
+  public void setName(String newName) throws IllegalArgumentException {
+    validateName(newName);
+    name = newName;
+  }
+
+  /**
+   * Checks if an entered name is empty or consists purely of blank spaces. If so,
+   * throw an {@link IllegalArgumentException}.
+   *
+   * @param name - The name to check.
+   * @throws IllegalArgumentException
+   */
+  private void validateName(String name) throws IllegalArgumentException {
+    if (name.isBlank()) {
+      throw new IllegalArgumentException();
+    }
   }
 }
