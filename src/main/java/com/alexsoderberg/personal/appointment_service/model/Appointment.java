@@ -3,6 +3,8 @@ package com.alexsoderberg.personal.appointment_service.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import org.springframework.cglib.core.Local;
+
 public class Appointment {
   private String name;
   private LocalDate date;
@@ -42,11 +44,11 @@ public class Appointment {
    * Checks if an entered name is empty or consists purely of blank spaces. If so,
    * throw an {@link IllegalArgumentException}.
    *
-   * @param name - The name to check.
+   * @param newName - The name to check.
    * @throws IllegalArgumentException
    */
-  private void validateName(String name) throws IllegalArgumentException {
-    if (name.isBlank()) {
+  private void validateName(String newName) throws IllegalArgumentException {
+    if (newName.isBlank()) {
       throw new IllegalArgumentException();
     }
   }
@@ -75,21 +77,44 @@ public class Appointment {
    * Validates if the entered date is before the current date. If so,
    * throw an {@link IllegalArgumentException}
    *
-   * @param date - The date to check.
+   * @param newDate - The date to check.
    * @throws IllegalArgumentException
    */
-  private void validateDate(LocalDate date) throws IllegalArgumentException {
-    if (date.isBefore(LocalDate.now()) || date.equals(LocalDate.now())) {
+  private void validateDate(LocalDate newDate) throws IllegalArgumentException {
+    if (newDate.isBefore(LocalDate.now()) || newDate.equals(LocalDate.now())) {
       throw new IllegalArgumentException();
     }
   }
 
+  /**
+   * Returns the time property.
+   *
+   * @return A LocalTime object that represents the current time property.
+   */
   public LocalTime getTime() {
     return time;
   }
 
-  public Object setTime(LocalTime input) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setTime'");
+  /**
+   * Sets 
+   * @param newTime
+   * @throws IllegalArgumentException
+   */
+  public void setTime(LocalTime newTime) throws IllegalArgumentException {
+    validateTime(newTime);
+    time = newTime;
+  }
+
+  /**
+   * Validates if the entered time is before the current time and date. If so,
+   * throw an {@link IllegalArgumentException}
+   *
+   * @param newTime - The date to check.
+   * @throws IllegalArgumentException
+   */
+  private void validateTime(LocalTime newTime) throws IllegalArgumentException {
+    if(date.isEqual(LocalDate.now()) && newTime.isBefore(LocalTime.now())) {
+      throw new IllegalArgumentException();
+    }
   }
 }
