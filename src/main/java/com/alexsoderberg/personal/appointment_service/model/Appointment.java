@@ -85,8 +85,7 @@ public class Appointment {
   }
 
   public LocalTime getTime() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getTime'");
+    return time;
   }
 
   public Object setTime(LocalTime input) {
