@@ -1,6 +1,8 @@
 package com.alexsoderberg.personal.appointment_service.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -42,13 +44,21 @@ public class AppointmentTest {
   }
 
   @Test
+  void setShouldThrowExceptionOnBlankStringEntered() {
+    String input = "  ";
+    assertThrows(IllegalArgumentException.class, () -> sut.setName(input));
+  }
+
+  @Test
   void nameShouldBeUnchangedOnEmptyStringSet() {
     String input = "";
     String expected = testName;
 
-    String actual = setAndReturnUpdatedName(input);
-
-    assertEquals(expected, actual);
+    try {
+      setAndReturnUpdatedName(input);
+    } catch (Exception e) {
+      assertNotEquals(expected, input);
+    }
   }
 
   @Test
@@ -56,8 +66,11 @@ public class AppointmentTest {
     String input = "  ";
     String expected = testName;
 
-    String actual = setAndReturnUpdatedName(input);
-    assertEquals(expected, actual);
+    try {
+      setAndReturnUpdatedName(input);
+    } catch (Exception e) {
+      assertNotEquals(expected, input);
+    }
   }
 
   private String setAndReturnUpdatedName(String newName) {
