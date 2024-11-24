@@ -118,4 +118,14 @@ public class Appointment {
       throw new IllegalArgumentException();
     }
   }
+
+  public int getDuration() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getDuration'");
+  }
+
+  public void setDuration(int newDuration) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
+  }
 }

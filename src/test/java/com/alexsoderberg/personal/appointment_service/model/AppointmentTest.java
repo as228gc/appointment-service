@@ -147,7 +147,7 @@ public class AppointmentTest {
     );
 
     int offset = -2;
-    LocalTime input = getTimeWithOffset(offset, offset);
+    LocalTime input = getTimeWithOffset(offset, 0);
 
     assertThrows(IllegalArgumentException.class, () -> sut.setTime(input));
   }
@@ -160,5 +160,42 @@ public class AppointmentTest {
     int newMinute = currentMinute + minuteOffset;
     return LocalTime.of(newHour, newMinute);
   }
+
+  @Test
+  void getDurationShouldReturnTheDurationOfAppointment() {
+    int expected = testDuration;
+    int actual = sut.getDuration();
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void setDurationShouldSetACorrectDuration() {
+    int input = 30;
+    int expected = input;
+    sut.setDuration(input);
+    int actual = sut.getDuration();
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void setDurationShouldThrowExceptionWhenEnteredWithNegativeNumber() {
+    int input = -1;
+    assertThrows(IllegalArgumentException.class, () -> sut.setDuration(input));
+  }
+
+  @Test
+  void setDurationShouldThrowExceptionWhenEnteredWithZero() {
+    int input = 0;
+    assertThrows(IllegalArgumentException.class, () -> sut.setDuration(input));
+  }
+
+  @Test
+  void setDurationShouldThrowExceptionWhenEnteredWithLargerThanOneThousand() {
+    int input = 1001;
+    assertThrows(IllegalArgumentException.class, () -> sut.setDuration(input));
+  }
+
+
 
 }
