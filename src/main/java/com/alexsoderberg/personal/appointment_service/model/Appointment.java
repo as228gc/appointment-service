@@ -152,4 +152,14 @@ public class Appointment {
       throw new IllegalArgumentException();
     }
   }
+
+  public String getDescription() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getDescription'");
+  }
+
+  public Object setDescription(String input) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'setDescription'");
+  }
 }

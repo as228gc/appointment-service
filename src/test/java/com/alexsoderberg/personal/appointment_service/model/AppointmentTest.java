@@ -196,6 +196,37 @@ public class AppointmentTest {
     assertThrows(IllegalArgumentException.class, () -> sut.setDuration(input));
   }
 
+  @Test
+  void getDescriptionShouldReturnDescriptionOfAppointment() {
+    String expected = testDescription;
+    String actual = sut.getDescription();
+    assertEquals(expected, actual);
+  }
 
+  @Test 
+  void setDescriptionShouldSetTheAppointmentDescription() {
+    String input = "Female hair cut";
+    String expected = input;
+    sut.setDescription(input);
+    String actual = sut.getDescription();
+    assertEquals(expected, actual);
+  }
 
+  @Test
+  void setDescriptionShouldThrowExceptionWhenEnteredWithTooLongString() {
+    String input = "x".repeat(2000);
+    assertThrows(IllegalArgumentException.class, () -> sut.setDescription(input));
+  }
+
+  @Test
+  void setDescriptionShouldThrowExceptionWhenEnteredWithEmptyString() {
+    String input = "";
+    assertThrows(IllegalArgumentException.class, () -> sut.setDescription(input));
+  }
+
+  @Test
+  void setDescriptionShouldThrowExceptionWhenEnteredWithOnlyBlankspaces() {
+    String input = "   ";
+    assertThrows(IllegalArgumentException.class, () -> sut.setDescription(input));
+  }
 }
