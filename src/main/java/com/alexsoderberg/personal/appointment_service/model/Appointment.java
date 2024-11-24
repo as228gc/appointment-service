@@ -120,8 +120,7 @@ public class Appointment {
   }
 
   public int getDuration() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getDuration'");
+    return duration;
   }
 
   public void setDuration(int newDuration) {
