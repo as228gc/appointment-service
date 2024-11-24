@@ -96,7 +96,8 @@ public class Appointment {
   }
 
   /**
-   * Sets 
+   * Sets a new time to the time property.
+   *
    * @param newTime
    * @throws IllegalArgumentException
    */
