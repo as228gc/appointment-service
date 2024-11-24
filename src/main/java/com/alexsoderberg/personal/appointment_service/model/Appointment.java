@@ -119,12 +119,37 @@ public class Appointment {
     }
   }
 
+  /**
+   * Returns the value of the duration property.
+   *
+   * @return An integer representing the duration in minutes.
+   */
   public int getDuration() {
     return duration;
   }
 
-  public void setDuration(int newDuration) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setDuration'");
+  /**
+   * Sets a new value to the duration property. If entered with
+   * and invalid value, throw {@link IllegalArgumentException}
+   *
+   * @param newDuration The new value to be set to the duration property.
+   * @throws IllegalArgumentException
+   */
+  public void setDuration(int newDuration) throws IllegalArgumentException {
+    validateDuration(newDuration);
+    duration = newDuration;
+  }
+
+  /**
+   * Checks if an entered duration is a positive value between 1 and 1000. If not,
+   * throw an {@link IllegalArgumentException}
+   *
+   * @param newDuration The new value to check.
+   * @throws IllegalArgumentException
+   */
+  private void validateDuration(int newDuration) throws IllegalArgumentException {
+    if (newDuration < 1 || newDuration > 1000) {
+      throw new IllegalArgumentException();
+    }
   }
 }
