@@ -153,13 +153,38 @@ public class Appointment {
     }
   }
 
+  /**
+   * Returns the value of the description property.
+   *
+   * @return A string containing the description
+   */
   public String getDescription() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getDescription'");
+    return description;
   }
 
-  public Object setDescription(String input) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'setDescription'");
+  /**
+   * Sets a new value to the description property. If entered
+   * with an invalid string, throw an {@link IllegalArgumentException}
+   *
+   * @param newDescription - The new description to be set.
+   * @throws IllegalArgumentException
+   */
+  public void setDescription(String newDescription) throws IllegalArgumentException {
+    validateDescription(newDescription);
+    description = newDescription;
+  }
+
+  /**
+   * Checks that the entered description is not empty, contains only blankspaces,
+   * or is not longer than 1000 characters. If one of the rules are broken, throw an
+   * {@link IllegalArgumentException}
+   *
+   * @param newDescription The string to check
+   * @throws IllegalArgumentException
+   */
+  private void validateDescription(String newDescription) throws IllegalArgumentException {
+    if(newDescription.isBlank() || newDescription.isEmpty() || newDescription.length() > 1000) {
+      throw new IllegalArgumentException();
+    }
   }
 }
