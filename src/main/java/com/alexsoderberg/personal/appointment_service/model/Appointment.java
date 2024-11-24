@@ -3,8 +3,6 @@ package com.alexsoderberg.personal.appointment_service.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import org.springframework.cglib.core.Local;
-
 public class Appointment {
   private String name;
   private LocalDate date;
