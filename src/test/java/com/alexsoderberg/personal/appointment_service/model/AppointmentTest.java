@@ -9,7 +9,6 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.cglib.core.Local;
 
 public class AppointmentTest {
 
@@ -29,6 +28,127 @@ public class AppointmentTest {
       testDuration,
       testDescription
     );
+  }
+
+  @Test
+  void constructorShouldThrowExceptionOnBlankNameStringEntered() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      "   ",
+      testDate,
+      testTime,
+      testDuration,
+      testDescription
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionOnEmptyNameStringEntered() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      "",
+      testDate,
+      testTime,
+      testDuration,
+      testDescription
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionWhenEnteredWithNameLongerThanTwoHundred() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      "x".repeat(201),
+      testDate,
+      testTime,
+      testDuration,
+      testDescription
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionOnPassedDateEntered() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      testName,
+      LocalDate.of(2024, 1, 1),
+      testTime,
+      testDuration,
+      testDescription
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionOnCurrentDateEntered() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      testName,
+      LocalDate.now(),
+      testTime,
+      testDuration,
+      testDescription
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionWhenEnteredWithNegativeDurationNumber() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      testName,
+      testDate,
+      testTime,
+      -1,
+      testDescription
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionWhenEnteredWithZeroDuration() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      testName,
+      testDate,
+      testTime,
+      0,
+      testDescription
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionWhenEnteredWithDurationLargerThanOneThousand() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      testName,
+      testDate,
+      testTime,
+      1001, 
+      testDescription
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionWhenEnteredWithTooLongDescrptionString() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      testName,
+      testDate,
+      testTime,
+      testDuration, 
+      "x".repeat(2000)
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionWhenEnteredWithEmptyDescriptionString() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      testName,
+      testDate,
+      testTime,
+      testDuration,
+      ""
+    ));
+  }
+
+  @Test
+  void constructorShouldThrowExceptionWhenEnteredWithBlankDescriptionString() {
+    assertThrows(IllegalArgumentException.class, () -> new Appointment(
+      testName,
+      testDate,
+      testTime,
+      testDuration,
+      "   "
+    ));
   }
 
   @Test
@@ -105,13 +225,13 @@ public class AppointmentTest {
   }
 
   @Test
-  void setDateShouldThrowErrorWhenEnteredWithPassedDate() {
+  void setDateShouldThrowExceptionWhenEnteredWithPassedDate() {
     LocalDate input = LocalDate.of(2024, 1, 1);
     assertThrows(IllegalArgumentException.class, () -> sut.setDate(input));
   }
 
   @Test
-  void setDateShouldThrowErrorWhenEnteredWithTodaysDate() {
+  void setDateShouldThrowExceptionWhenEnteredWithTodaysDate() {
     LocalDate input = LocalDate.now();
     assertThrows(IllegalArgumentException.class, () -> sut.setDate(input));
   }
@@ -128,7 +248,7 @@ public class AppointmentTest {
   void setTimeShouldSetNewTime() {
     int offset = 2;
 
-    LocalTime input = getTimeWithOffset(offset, offset);
+    LocalTime input = getTimeWithOffset(offset, 0);
     LocalTime expected = input;
     sut.setTime(input);
     LocalTime actual = sut.getTime();
@@ -146,8 +266,8 @@ public class AppointmentTest {
       testDescription
     );
 
-    int offset = -2;
-    LocalTime input = getTimeWithOffset(offset, 0);
+    int hourOffset = -2;
+    LocalTime input = getTimeWithOffset(hourOffset, 0);
 
     assertThrows(IllegalArgumentException.class, () -> sut.setTime(input));
   }
