@@ -79,7 +79,7 @@ public class Appointment {
    * @throws IllegalArgumentException
    */
   private void validateDate(LocalDate newDate) throws IllegalArgumentException {
-    if (newDate.isBefore(LocalDate.now()) || newDate.equals(LocalDate.now())) {
+    if (!newDate.isAfter(LocalDate.now())) {
       throw new IllegalArgumentException();
     }
   }
@@ -100,7 +100,7 @@ public class Appointment {
    * @throws IllegalArgumentException
    */
   public void setTime(LocalTime newTime) throws IllegalArgumentException {
-    validateTime(newTime);
+    validateTime(newTime, date);
     time = newTime;
   }
 
@@ -111,8 +111,8 @@ public class Appointment {
    * @param newTime - The date to check.
    * @throws IllegalArgumentException
    */
-  private void validateTime(LocalTime newTime) throws IllegalArgumentException {
-    if(date.isEqual(LocalDate.now()) && newTime.isBefore(LocalTime.now())) {
+  private void validateTime(LocalTime newTime, LocalDate currentDate) throws IllegalArgumentException {
+    if(currentDate.isEqual(LocalDate.now()) && newTime.isBefore(LocalTime.now())) {
       throw new IllegalArgumentException();
     }
   }
