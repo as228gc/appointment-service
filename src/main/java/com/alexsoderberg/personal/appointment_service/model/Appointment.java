@@ -11,6 +11,12 @@ public class Appointment {
   private String description;
 
   public Appointment(String name, LocalDate date, LocalTime time, int duration, String description) {
+    validateName(name);
+    validateDate(date);
+    validateTime(time, date);
+    validateDuration(duration);
+    validateDescription(description);
+
     this.name = name;
     this.date = date;
     this.time = time;
@@ -46,7 +52,7 @@ public class Appointment {
    * @throws IllegalArgumentException
    */
   private void validateName(String newName) throws IllegalArgumentException {
-    if (newName.isBlank()) {
+    if (newName.isBlank() || newName.length() > 200) {
       throw new IllegalArgumentException();
     }
   }
@@ -79,7 +85,7 @@ public class Appointment {
    * @throws IllegalArgumentException
    */
   private void validateDate(LocalDate newDate) throws IllegalArgumentException {
-    if (!newDate.isAfter(LocalDate.now())) {
+    if (newDate.isBefore(LocalDate.now())) {
       throw new IllegalArgumentException();
     }
   }
