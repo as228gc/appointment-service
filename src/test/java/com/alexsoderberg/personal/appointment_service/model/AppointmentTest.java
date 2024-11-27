@@ -3,18 +3,12 @@ package com.alexsoderberg.personal.appointment_service.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mockConstruction;
-import static org.mockito.Mockito.mockStatic;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedConstruction;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.mockito.Mockito.*;
 
 public class AppointmentTest {
 
@@ -78,12 +72,11 @@ public class AppointmentTest {
   @Test
   void constructorShouldThrowExceptionOnPassedTimeEntered() {
     assertThrows(IllegalArgumentException.class, () -> new Appointment(
-      testName,
-      LocalDate.now(),
-      LocalTime.now().minusHours(1),
-      testDuration,
-      testDescription
-    ));
+        testName,
+        LocalDate.now(),
+        LocalTime.now().minusHours(1),
+        testDuration,
+        testDescription));
   }
 
   @Test
@@ -248,11 +241,10 @@ public class AppointmentTest {
   void setTimeShouldThrowExceptionOnPassedTimeAndDateEntered() {
     Appointment sut = new Appointment(
         testName,
-      LocalDate.now(),
+        LocalDate.now(),
         testTime,
         testDuration,
-        testDescription
-      );
+        testDescription);
 
     int hourOffset = -2;
     LocalTime input = getTimeWithHourOffset(hourOffset);
