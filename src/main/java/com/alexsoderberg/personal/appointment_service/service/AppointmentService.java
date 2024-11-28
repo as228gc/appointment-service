@@ -1,17 +1,20 @@
 package com.alexsoderberg.personal.appointment_service.service;
 
-import org.springframework.data.repository.core.support.RepositoryFragment.ImplementedRepositoryFragment;
+import org.springframework.stereotype.Service;
 
 import com.alexsoderberg.personal.appointment_service.model.Appointment;
 import com.alexsoderberg.personal.appointment_service.repository.AppointmentRepository;
 
+@Service
 public class AppointmentService {
-  public AppointmentService(AppointmentRepository repository) {
+  
+  private AppointmentRepository repository;
 
+  public AppointmentService(AppointmentRepository repository) {
+    this.repository = repository;
   }
 
   Appointment saveAppointment(Appointment appointment) {
-    // TODO: 
-    return null;
+    return repository.save(appointment);
   }
 }
