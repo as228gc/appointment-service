@@ -30,6 +30,7 @@ public class AppointmentController {
 
   @GetMapping
   public ResponseEntity<List<Appointment>> getAppointments() {
-      return null;
+    List<Appointment> appointments = service.getAppointments();
+    return new ResponseEntity<>(appointments, HttpStatus.OK);
   }
 }
