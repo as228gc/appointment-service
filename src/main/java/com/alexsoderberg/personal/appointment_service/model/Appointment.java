@@ -23,6 +23,10 @@ public class Appointment {
   private int duration;
   private String description;
 
+  // Empty contructor required for JPA
+  public Appointment() {
+  }
+
   public Appointment(String name, LocalDate date, LocalTime time, int duration, String description) {
     validateName(name);
     validateDate(date);
