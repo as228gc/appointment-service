@@ -2,6 +2,7 @@ package com.alexsoderberg.personal.appointment_service.controller;
 
 import com.alexsoderberg.personal.appointment_service.model.Appointment;
 import com.alexsoderberg.personal.appointment_service.service.AppointmentService;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,18 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post; // Import for POST
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status; // Import for status assertions
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @WebMvcTest(AppointmentController.class)
 class AppointmentControllerTest {
@@ -52,6 +58,45 @@ class AppointmentControllerTest {
                     }
                 """))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void getAppointmentsShouldReturnListOfAppointments() throws Exception {
+      List<Appointment> mockAppointments = List.of(
+        new Appointment(
+          "Test Testsson",
+          LocalDate.now().plusDays(2),
+          LocalTime.now(),
+          90,
+          "Male haircut"
+        ),
+        new Appointment(
+          "Testa McTest",
+          LocalDate.now().plusDays(1),
+          LocalTime.now(),
+          60,
+          "Female haircut"
+        )
+      );
+
+      when(service.getAppointments()).thenReturn(mockAppointments);
+
+      mockMvc.perform(get("/api/appointments")
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.size()").value(2))
+        .andExpect(jsonPath("$[0].name").value("Test Testsson"))
+        .andExpect(jsonPath("$[1].name").value("Testa McTest"));
+    }
+
+    @Test
+    void getAppointmentsShouldReturnEmptyListWhenNoSavedAppointments() throws Exception {
+      when(service.getAppointments()).thenReturn(List.of());
+
+      mockMvc.perform(get("/api/appointments")
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()").value(0));
     }
 }
 

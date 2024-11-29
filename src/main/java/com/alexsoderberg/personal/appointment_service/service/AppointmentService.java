@@ -1,5 +1,7 @@
 package com.alexsoderberg.personal.appointment_service.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.alexsoderberg.personal.appointment_service.model.Appointment;
@@ -16,5 +18,9 @@ public class AppointmentService {
 
   public Appointment saveAppointment(Appointment appointment) {
     return repository.save(appointment);
+  }
+
+  public List<Appointment> getAppointments() {
+      return null;
   }
 }
