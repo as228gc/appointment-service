@@ -23,4 +23,9 @@ public class AppointmentService {
   public List<Appointment> getAppointments() {
     return repository.findAll();
   }
+
+  public Appointment deleteAppointment(Long appointmentId) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'deleteAppointment'");
+  }
 }

@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post; // Import for POST
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(AppointmentController.class)
@@ -97,6 +100,27 @@ class AppointmentControllerTest {
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(0));
+    }
+
+    @Test
+    void deleteAppointmentShouldReturnDeletedAppointment() throws Exception {
+      Appointment appointment = new Appointment(
+        "Test Testsson",
+        LocalDate.now().plusDays(2),
+        LocalTime.now(),
+        90,
+        "Male haircut"
+      );
+
+      Long appointmentId = (long) 1;
+
+      when(service.deleteAppointment(appointmentId)).thenReturn(appointment);
+
+      mockMvc.perform(delete("/api/appointments/" + appointmentId)
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+      
+      verify(service, times(1)).deleteAppointment(appointmentId);
     }
 }
 

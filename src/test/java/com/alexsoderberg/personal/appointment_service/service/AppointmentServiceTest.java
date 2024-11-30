@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,5 +61,19 @@ public class AppointmentServiceTest {
       LocalTime.now(),
       90,
       "Male hair cut");
+  }
+
+  @Test
+  void deleteAppointmentShouldDeleteAppointmentOnValidInput() {
+    Appointment appointment = generateTestAppointment();
+    Long appointmentId = (long) 1;
+
+    when(repository.findById(appointmentId)).thenReturn(Optional.of(appointment));
+
+    Appointment deletedAppointment = sut.deleteAppointment(appointmentId);
+
+    assertEquals(appointment, deletedAppointment);
+    verify(repository, times(1)).findById(appointmentId);
+    verify(repository, times(1)).deleteById(appointmentId);
   }
 }
