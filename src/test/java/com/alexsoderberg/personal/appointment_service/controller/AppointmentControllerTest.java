@@ -19,8 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -104,13 +104,13 @@ class AppointmentControllerTest {
 
     @Test
     void deleteAppointmentShouldReturnDeletedAppointment() throws Exception {
-      Appointment appointment = new Appointment(
+      Optional<Appointment> appointment = Optional.of(new Appointment(
         "Test Testsson",
         LocalDate.now().plusDays(2),
         LocalTime.now(),
         90,
         "Male haircut"
-      );
+      ));
 
       Long appointmentId = (long) 1;
 

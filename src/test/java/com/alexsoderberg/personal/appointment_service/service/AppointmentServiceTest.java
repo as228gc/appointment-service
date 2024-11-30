@@ -70,7 +70,7 @@ public class AppointmentServiceTest {
 
     when(repository.findById(appointmentId)).thenReturn(Optional.of(appointment));
 
-    Appointment deletedAppointment = sut.deleteAppointment(appointmentId);
+    Appointment deletedAppointment = sut.deleteAppointment(appointmentId).orElseThrow();
 
     assertEquals(appointment, deletedAppointment);
     verify(repository, times(1)).findById(appointmentId);
