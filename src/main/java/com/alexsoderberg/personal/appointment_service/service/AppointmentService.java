@@ -1,6 +1,7 @@
 package com.alexsoderberg.personal.appointment_service.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,9 @@ public class AppointmentService {
     return repository.findAll();
   }
 
-  public Appointment deleteAppointment(Long appointmentId) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'deleteAppointment'");
+  public Optional<Appointment> deleteAppointment(Long appointmentId) {
+    Optional<Appointment> appointment = repository.findById(appointmentId);
+    repository.deleteById(appointmentId);
+    return appointment;
   }
 }
