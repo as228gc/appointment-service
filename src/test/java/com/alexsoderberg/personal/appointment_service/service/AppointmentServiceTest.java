@@ -76,4 +76,8 @@ public class AppointmentServiceTest {
     verify(repository, times(1)).findById(appointmentId);
     verify(repository, times(1)).deleteById(appointmentId);
   }
+
+  @Test
+  void updateAppointmentShouldUpdateAppointmentOnValidInput() {
+  }
 }

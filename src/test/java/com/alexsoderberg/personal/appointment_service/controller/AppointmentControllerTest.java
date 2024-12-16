@@ -41,7 +41,7 @@ class AppointmentControllerTest {
         // Arrange
         Appointment mockAppointment = new Appointment(
             "John Doe",
-            LocalDate.of(2024, 12, 1),
+            LocalDate.of(2025, 12, 1),
             LocalTime.of(10, 0),
             60,
             "Consultation"
@@ -54,7 +54,7 @@ class AppointmentControllerTest {
                 .content("""
                     {
                         "name": "John Doe",
-                        "date": "2024-12-01",
+                        "date": "2025-12-01",
                         "time": "10:00",
                         "duration": 60,
                         "description": "Consultation"
